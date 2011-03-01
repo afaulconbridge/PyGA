@@ -1,0 +1,1 @@
+Search.setIndex({objects:{},terms:{content:0,pyga:0,document:0,welcom:0},objtypes:{},titles:["Welcome to PyGA&#8217;s documentation!"],objnames:{},filenames:["index"]})
