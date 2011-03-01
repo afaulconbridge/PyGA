@@ -12,5 +12,5 @@ docs:
 	sphinx-build -b latex -d doc/build/doctrees -D latex_paper_size=a4 doc/source doc/latex
 	#pdflatex is invoced via this shell script
 	#so that paths are local and its run repeatedly
-	doc/latex/runlatex.sh
+	doc/latex/runlatex.sh > /dev/null
 	

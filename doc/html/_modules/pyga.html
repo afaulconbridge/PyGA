@@ -1,0 +1,251 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyga &mdash; PyGA v0.1.1 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="PyGA v0.1.1 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">PyGA v0.1.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for pyga</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This is the core module for pyga.</span>
+
+<span class="sd">Here are the basic vanilla components; genes and a GA.</span>
+<span class="sd">Other variations are sub-classes of these.</span>
+
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">random</span>
+
+
+<div class="viewcode-block" id="Gene"><a class="viewcode-back" href="../index.html#pyga.Gene">[docs]</a><span class="k">class</span> <span class="nc">Gene</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;&quot;</span>
+<span class="sd">    This is the base class for Gene objects. These do not </span>
+<span class="sd">    represent a specific gene on one chromosme, rather</span>
+<span class="sd">    it representes all possible genes that exist at that</span>
+<span class="sd">    position - the different alleles (values).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">(</span><span class="bp">None</span><span class="p">,)):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        To initialize, simply pass the list of possible values.</span>
+<span class="sd">        This will be kept for later mutation between them.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">values</span>
+
+    <span class="k">def</span> <span class="nf">randomize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rng</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">old</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">rng</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">rng</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">Random</span><span class="p">()</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span>
+        <span class="c">#when we randomize, we want to make sure we actually change</span>
+        <span class="c">#otherwise the net real mutation rate is not the same as </span>
+        <span class="c">#the specified gross mutation rate</span>
+        <span class="c">#If there are a larger number of values, this may be an</span>
+        <span class="c">#inefficient way to do it.</span>
+        <span class="k">if</span> <span class="n">old</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">values</span> <span class="k">if</span> <span class="n">x</span> <span class="o">!=</span> <span class="n">old</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Simple string representation to aid debugging.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s">&quot;&lt;&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">+</span><span class="s">&quot;&gt;&quot;</span>
+</div>
+<div class="viewcode-block" id="GeneticAlg"><a class="viewcode-back" href="../index.html#pyga.GeneticAlg">[docs]</a><span class="k">class</span> <span class="nc">GeneticAlg</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base class for the GA itself. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">generations</span><span class="p">,</span> <span class="n">chromosomepattern</span><span class="p">,</span> <span class="n">chromosomecount</span><span class="p">,</span> <span class="n">survival</span><span class="p">,</span> <span class="n">rng</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor to create a GA.</span>
+<span class="sd">        Currently, this also starts it running, which is probably a bad idea.</span>
+<span class="sd">        </span>
+<span class="sd">        TODO: describe parameters</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generations</span> <span class="o">=</span> <span class="n">generations</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generationno</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chromosomepattern</span> <span class="o">=</span> <span class="n">chromosomepatterns</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chromosomecount</span> <span class="o">=</span> <span class="n">chromosomecount</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">survival</span> <span class="o">=</span> <span class="n">survival</span>
+        <span class="k">if</span> <span class="n">rng</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rng</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">Random</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rng</span> <span class="o">=</span> <span class="n">rng</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">population</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">genomemake</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">score_population</span><span class="p">()</span>
+
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">generationno</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">generations</span><span class="p">:</span>
+            <span class="c">#Should do some sort of progress bar here, if run from terminal</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">generationno</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">evol_population</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">score_population</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="nf">genomemake</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">genome</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chromosomecount</span><span class="p">):</span>
+            <span class="n">genome</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">((</span><span class="n">genepattern</span><span class="o">.</span><span class="n">randomize</span><span class="p">(</span><span class="n">rng</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="p">)</span> <span class="k">for</span> <span class="n">genepattern</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">chromosomepattern</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">genome</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">genomechange</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="p">):</span>
+        <span class="n">genomeout</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">chromosome</span> <span class="ow">in</span> <span class="n">genome</span><span class="p">:</span>
+            <span class="n">chromosomeout</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">gene</span><span class="p">,</span> <span class="n">genepattern</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">chromosome</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">chromosomepattern</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">chromosome</span><span class="p">):</span> <span class="c">#this is mutationrate, avg of one per chromosome</span>
+                    <span class="n">chromosomeout</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">genepattern</span><span class="o">.</span><span class="n">randomize</span><span class="p">(</span><span class="n">rng</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="p">,</span> <span class="n">old</span> <span class="o">=</span> <span class="n">gene</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">chromosomeout</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gene</span><span class="p">)</span>
+            <span class="n">genomeout</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">chromosomeout</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">genomeout</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">write_scores</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="n">outfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">score</span><span class="p">,</span> <span class="n">genome</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scores</span><span class="p">:</span>
+            <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">score</span><span class="p">))</span>
+            <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\t</span><span class="s">&#39;</span><span class="p">)</span>
+            <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">genome</span><span class="p">))</span>
+            <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">score_population</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">fitness_function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">population</span><span class="p">]</span>
+        <span class="c">#to randomize the order of tied individuals a random</span>
+        <span class="c">#number is assigned to each one. when sorted, this</span>
+        <span class="c">#random number will break ties. Odds of picking</span>
+        <span class="c">#two random floats the same is v. v. small</span>
+        <span class="n">rand</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">population</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scores</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">rand</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">population</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scores</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="c">#throw away the random number now that it is sorted</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scores</span> <span class="o">=</span> <span class="p">[(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scores</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">evol_population</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scores</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">population</span><span class="p">)</span>
+        <span class="n">survivecount</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scores</span><span class="p">)</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">survival</span><span class="p">)</span>
+        <span class="c">#ensure there is at least one survivor</span>
+        <span class="k">if</span> <span class="n">survivecount</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">survivecount</span> <span class="o">=</span> <span class="mi">1</span>
+            
+        <span class="n">survived</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span> <span class="n">scores</span><span class="p">[:</span><span class="n">survivecount</span><span class="p">]</span>
+        <span class="n">killed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scores</span><span class="p">[</span><span class="n">survivecount</span><span class="p">:]</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">survived</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">killed</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">population</span><span class="p">)</span>
+        <span class="c">#we should kill something or there is no room for births</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">killed</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        
+        <span class="n">newgenomes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">parents</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="c">#see what survived to go to the next generation</span>
+        <span class="k">for</span> <span class="n">fitness</span><span class="p">,</span> <span class="n">genome</span> <span class="ow">in</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">survived</span><span class="p">):</span>
+            <span class="c">#fitnesses below the minimal score are gross</span>
+            <span class="c">#malformations - such as invalid data or other</span>
+            <span class="c">#very bad things. </span>
+            <span class="c">#if this is the best we can do then we might</span>
+            <span class="c">#as well try things at random to find a better</span>
+            <span class="c">#area of the fitness landscape</span>
+            <span class="k">if</span> <span class="n">fitness</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">newgenomes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">genomemake</span><span class="p">())</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">newgenomes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">genome</span><span class="p">)</span>
+                <span class="c">#parents.append(genome)</span>
+                <span class="c">#best genomes have more chance to reproduce</span>
+                <span class="n">parents</span> <span class="o">=</span> <span class="n">parents</span> <span class="o">+</span> <span class="n">parents</span> <span class="o">+</span> <span class="p">[</span><span class="n">genome</span><span class="p">]</span>
+
+        <span class="c">#replace the dead with new individuals</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">killed</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parents</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c">#if none of the parents were worthy, generate</span>
+                <span class="c">#new random individual</span>
+                <span class="n">newgenomes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">genomemake</span><span class="p">())</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c">#mutate a random parent</span>
+                <span class="c">#more sucessfull parents have more chance to be picked</span>
+                <span class="n">newgenomes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">genomechange</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">parents</span><span class="p">)))</span>
+            
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">newgenomes</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">population</span><span class="p">)</span>    
+        <span class="bp">self</span><span class="o">.</span><span class="n">population</span> <span class="o">=</span> <span class="n">newgenomes</span>
+            </div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">PyGA v0.1.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Adam Faulconbridge.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>
