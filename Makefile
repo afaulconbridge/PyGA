@@ -4,8 +4,11 @@ test:
 	#run the test suite in test/
 	#these also serve as examples
 	
-doc:
+docs:
 	#run sphinx to make documentation in doc/
-	sphinx-build -b html -d doc/build/doctrees -D latex_paper_size=a4 doc/source doc
-	sphinx-build -b latex -d doc/build/doctrees -D latex_paper_size=a4 doc/source doc
+	#NOTE: name of command is docs not doc. Make does not like phoney commands
+	#with the same name as the file...
+	sphinx-build -b html -d doc/build/doctrees doc/source doc/html
+	sphinx-build -b latex -d doc/build/doctrees -D latex_paper_size=a4 doc/source doc/latex
+	#pdflatex doc/pyga.tex 
 	
