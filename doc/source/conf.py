@@ -16,8 +16,8 @@ import sys, os
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../..'))
+sys.path.insert(0, os.path.abspath('../../test'))
 
 # -- General configuration -----------------------------------------------------
 
@@ -215,3 +215,10 @@ man_pages = [
     ('index', 'pyga', u'PyGA Documentation',
      [u'Adam Faulconbridge'], 1)
 ]
+
+
+# -- Options for add-ons--------------------------------------------------------
+
+#This value is a list of autodoc directive flags that should be automatically applied to all autodoc directives. The supported flags are 'members', 'undoc-members', 'inherited-members' and 'show-inheritance'.
+#If you set one of these flags in this config value, you can use a negated form, 'no-flag', in an autodoc directive, to disable it once.
+autodoc_default_flags = ["members"]

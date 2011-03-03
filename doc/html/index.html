@@ -65,11 +65,61 @@ position - the different alleles (values).</p>
 
 <dl class="class">
 <dt id="pyga.GeneticAlg">
-<em class="property">class </em><tt class="descclassname">pyga.</tt><tt class="descname">GeneticAlg</tt><big>(</big><em>size</em>, <em>generations</em>, <em>chromosomepattern</em>, <em>chromosomecount</em>, <em>survival</em>, <em>rng=None</em><big>)</big><a class="reference internal" href="_modules/pyga.html#GeneticAlg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyga.GeneticAlg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base class for the GA itself.</p>
+<em class="property">class </em><tt class="descclassname">pyga.</tt><tt class="descname">GeneticAlg</tt><big>(</big><em>populationsize</em>, <em>generations</em>, <em>genomepattern</em>, <em>fitness_function</em>, <em>survival=0.10000000000000001</em>, <em>rng=None</em>, <em>avgmutations=1.0</em>, <em>mutationrate=None</em><big>)</big><a class="reference internal" href="_modules/pyga.html#GeneticAlg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyga.GeneticAlg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for the Genetic Algorithm itself.</p>
+<dl class="method">
+<dt id="pyga.GeneticAlg.evol_population">
+<tt class="descname">evol_population</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pyga.html#GeneticAlg.evol_population"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyga.GeneticAlg.evol_population" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evolves a new generation of the population based on
+the fitness values calculated by score_population.</p>
+<p>Replaces self.population with the new generation.</p>
 </dd></dl>
 
-</div>
+<dl class="method">
+<dt id="pyga.GeneticAlg.genome_make">
+<tt class="descname">genome_make</tt><big>(</big><big>)</big><a class="headerlink" href="#pyga.GeneticAlg.genome_make" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new genome based on self.chromosomepatterns.
+Uses the selfs random number generator, which may have
+been seeded.</p>
+<p>Genome return is a tuple of tuples of alleles.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyga.GeneticAlg.genome_mutate">
+<tt class="descname">genome_mutate</tt><big>(</big><em>genome</em><big>)</big><a class="headerlink" href="#pyga.GeneticAlg.genome_mutate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a mutated copy of a genome. 
+Genome must match self.chromosomepatterns, which it will do if created via
+self.genomemake or self.genomemutate.
+Mutation rate is based on self.mutationrate.</p>
+<p>This does not do cross-over.
+This does not do duplication/deletion, and can&#8217;t unless changes are made to 
+self.chromosomepatterns too.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyga.GeneticAlg.score_population">
+<tt class="descname">score_population</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pyga.html#GeneticAlg.score_population"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyga.GeneticAlg.score_population" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the fitness of each individual in the population.
+Then sorts the population in descending fitness order.
+Ties are broken randomly.</p>
+<p>Rather than returning the scores, it sets the self.scores variable
+This it to discourage repeated fitness calculations becaue it can
+be a computationally expensive process.</p>
+<p>The genomes of the current generation are stored with the scores.
+This is to make it easy to see which genome got which score, rather
+than assuming self.population and self.scores have the same ordering.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyga.GeneticAlg.write_scores">
+<tt class="descname">write_scores</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="_modules/pyga.html#GeneticAlg.write_scores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyga.GeneticAlg.write_scores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dumps current generation to disk.
+Fomat is tab-separated between score and genome.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-coins"></span></div>
 
 
           </div>

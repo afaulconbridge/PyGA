@@ -140,15 +140,15 @@
             <span class="n">genomeout</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">chromosomeout</span><span class="p">))</span>
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">genomeout</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">write_scores</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<div class="viewcode-block" id="GeneticAlg.write_scores"><a class="viewcode-back" href="../index.html#pyga.GeneticAlg.write_scores">[docs]</a>    <span class="k">def</span> <span class="nf">write_scores</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
         <span class="n">outfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">score</span><span class="p">,</span> <span class="n">genome</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scores</span><span class="p">:</span>
             <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">score</span><span class="p">))</span>
             <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\t</span><span class="s">&#39;</span><span class="p">)</span>
             <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">genome</span><span class="p">))</span>
             <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">score_population</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</div>
+<div class="viewcode-block" id="GeneticAlg.score_population"><a class="viewcode-back" href="../index.html#pyga.GeneticAlg.score_population">[docs]</a>    <span class="k">def</span> <span class="nf">score_population</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">scores</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">fitness_function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">population</span><span class="p">]</span>
         <span class="c">#to randomize the order of tied individuals a random</span>
         <span class="c">#number is assigned to each one. when sorted, this</span>
@@ -159,8 +159,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">scores</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
         <span class="c">#throw away the random number now that it is sorted</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scores</span> <span class="o">=</span> <span class="p">[(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scores</span><span class="p">]</span>
-
-    <span class="k">def</span> <span class="nf">evol_population</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</div>
+<div class="viewcode-block" id="GeneticAlg.evol_population"><a class="viewcode-back" href="../index.html#pyga.GeneticAlg.evol_population">[docs]</a>    <span class="k">def</span> <span class="nf">evol_population</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scores</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">population</span><span class="p">)</span>
         <span class="n">survivecount</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scores</span><span class="p">)</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">survival</span><span class="p">)</span>
         <span class="c">#ensure there is at least one survivor</span>
@@ -205,7 +205,7 @@
             
         <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">newgenomes</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">population</span><span class="p">)</span>    
         <span class="bp">self</span><span class="o">.</span><span class="n">population</span> <span class="o">=</span> <span class="n">newgenomes</span>
-            </div>
+            </div></div>
 </pre></div>
 
           </div>

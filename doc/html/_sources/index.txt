@@ -7,4 +7,7 @@ Contents:
    :maxdepth: 2
 
 .. automodule:: pyga
-    :members:
+   :members:
+   
+.. automodule:: coins
+   :members:
