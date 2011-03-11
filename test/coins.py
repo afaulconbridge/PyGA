@@ -1,12 +1,8 @@
-#fudge to use this version because its not installed
-#TODO remove
-import sys
-import os.path
-sys.path.append(os.path.abspath("."))
-
-import pyga
-
 """
+
+Coins example
+-------------
+
 The problem is this:
 
 You work in a pet shop. A customer
@@ -17,7 +13,21 @@ customer gave you a 50.00 note, and your till
 contains only 17 x 100, 63 x 50p, 12 x 20p, 
 and 142 x 2p coins, which coins should you give
 to the customer in change?
+
 """
+
+def foo(bar):
+    """I am A DummY"""
+    pass
+
+#fudge to use this version because its not installed
+#TODO remove
+import sys
+import os.path
+sys.path.append(os.path.abspath("../"))
+
+import pyga
+
 
 if __name__=="__main__":
     #create a fitness function

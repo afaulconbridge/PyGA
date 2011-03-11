@@ -22,7 +22,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyGA v0.1.1 documentation" href="#" /> 
+    <link rel="top" title="PyGA v0.1.1 documentation" href="#" />
+    <link rel="next" title="PyGA" href="pyga.html" /> 
   </head>
   <body>
     <div class="related">
@@ -34,6 +35,9 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="pyga.html" title="PyGA"
+             accesskey="N">next</a> |</li>
         <li><a href="#">PyGA v0.1.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -45,81 +49,13 @@
             
   <div class="section" id="welcome-to-pyga-s-documentation">
 <h1>Welcome to PyGA&#8217;s documentation!<a class="headerlink" href="#welcome-to-pyga-s-documentation" title="Permalink to this headline">¶</a></h1>
-<p>Contents:</p>
 <div class="toctree-wrapper compound">
-<ul class="simple">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pyga.html">PyGA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">PyGA Tests</a></li>
 </ul>
 </div>
-<span class="target" id="module-pyga"></span><p>This is the core module for pyga.</p>
-<p>Here are the basic vanilla components; genes and a GA.
-Other variations are sub-classes of these.</p>
-<dl class="class">
-<dt id="pyga.Gene">
-<em class="property">class </em><tt class="descclassname">pyga.</tt><tt class="descname">Gene</tt><big>(</big><em>values=(None</em>, <em>)</em><big>)</big><a class="reference internal" href="_modules/pyga.html#Gene"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyga.Gene" title="Permalink to this definition">¶</a></dt>
-<dd><p>&#8221;
-This is the base class for Gene objects. These do not 
-represent a specific gene on one chromosme, rather
-it representes all possible genes that exist at that
-position - the different alleles (values).</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="pyga.GeneticAlg">
-<em class="property">class </em><tt class="descclassname">pyga.</tt><tt class="descname">GeneticAlg</tt><big>(</big><em>populationsize</em>, <em>generations</em>, <em>genomepattern</em>, <em>fitness_function</em>, <em>survival=0.10000000000000001</em>, <em>rng=None</em>, <em>avgmutations=1.0</em>, <em>mutationrate=None</em><big>)</big><a class="reference internal" href="_modules/pyga.html#GeneticAlg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyga.GeneticAlg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base class for the Genetic Algorithm itself.</p>
-<dl class="method">
-<dt id="pyga.GeneticAlg.evol_population">
-<tt class="descname">evol_population</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pyga.html#GeneticAlg.evol_population"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyga.GeneticAlg.evol_population" title="Permalink to this definition">¶</a></dt>
-<dd><p>Evolves a new generation of the population based on
-the fitness values calculated by score_population.</p>
-<p>Replaces self.population with the new generation.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyga.GeneticAlg.genome_make">
-<tt class="descname">genome_make</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pyga.html#GeneticAlg.genome_make"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyga.GeneticAlg.genome_make" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a new genome based on self.chromosomepatterns.
-Uses the selfs random number generator, which may have
-been seeded.</p>
-<p>Genome return is a tuple of tuples of alleles.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyga.GeneticAlg.genome_mutate">
-<tt class="descname">genome_mutate</tt><big>(</big><em>genome</em><big>)</big><a class="reference internal" href="_modules/pyga.html#GeneticAlg.genome_mutate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyga.GeneticAlg.genome_mutate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a mutated copy of a genome. 
-Genome must match self.chromosomepatterns, which it will do if created via
-self.genomemake or self.genomemutate.
-Mutation rate is based on self.mutationrate.</p>
-<p>This does not do cross-over.
-This does not do duplication/deletion, and can&#8217;t unless changes are made to 
-self.chromosomepatterns too.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyga.GeneticAlg.score_population">
-<tt class="descname">score_population</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pyga.html#GeneticAlg.score_population"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyga.GeneticAlg.score_population" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the fitness of each individual in the population.
-Then sorts the population in descending fitness order.
-Ties are broken randomly.</p>
-<p>Rather than returning the scores, it sets the self.scores variable
-This it to discourage repeated fitness calculations becaue it can
-be a computationally expensive process.</p>
-<p>The genomes of the current generation are stored with the scores.
-This is to make it easy to see which genome got which score, rather
-than assuming self.population and self.scores have the same ordering.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyga.GeneticAlg.write_scores">
-<tt class="descname">write_scores</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="_modules/pyga.html#GeneticAlg.write_scores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyga.GeneticAlg.write_scores" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dumps current generation to disk.
-Fomat is tab-separated between score and genome.</p>
-</dd></dl>
-
-</dd></dl>
-
-<span class="target" id="module-coins"></span></div>
+</div>
 
 
           </div>
@@ -127,6 +63,9 @@ Fomat is tab-separated between score and genome.</p>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyga.html"
+                        title="next chapter">PyGA</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/index.txt"
@@ -158,6 +97,9 @@ Fomat is tab-separated between score and genome.</p>
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="pyga.html" title="PyGA"
+             >next</a> |</li>
         <li><a href="#">PyGA v0.1.1 documentation</a> &raquo;</li> 
       </ul>
     </div>

@@ -1,0 +1,185 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyGA &mdash; PyGA v0.1.1 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyGA v0.1.1 documentation" href="index.html" />
+    <link rel="next" title="PyGA Tests" href="test.html" />
+    <link rel="prev" title="Welcome to PyGA’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="test.html" title="PyGA Tests"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to PyGA’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyGA v0.1.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <span class="target" id="module-pyga"></span><div class="section" id="pyga">
+<h1>PyGA<a class="headerlink" href="#pyga" title="Permalink to this headline">¶</a></h1>
+<p>This is the core module for pyga.</p>
+<p>Here are the basic vanilla components; Gene and a GeneticAlgorithm
+Other variations are sub-classes of these.</p>
+<dl class="class">
+<dt id="pyga.Gene">
+<em class="property">class </em><tt class="descclassname">pyga.</tt><tt class="descname">Gene</tt><big>(</big><em>values=(None</em>, <em>)</em><big>)</big><a class="reference internal" href="_modules/pyga.html#Gene"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyga.Gene" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>This is the base class for Gene objects. These do not 
+represent a specific gene on one chromosme, rather
+it representes all possible genes that exist at that
+position - the different alleles (values).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyga.GeneticAlg">
+<em class="property">class </em><tt class="descclassname">pyga.</tt><tt class="descname">GeneticAlg</tt><big>(</big><em>populationsize</em>, <em>generations</em>, <em>genomepattern</em>, <em>fitness_function</em>, <em>survival=0.10000000000000001</em>, <em>rng=None</em>, <em>avgmutations=1.0</em>, <em>mutationrate=None</em><big>)</big><a class="reference internal" href="_modules/pyga.html#GeneticAlg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyga.GeneticAlg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Base class for the Genetic Algorithm itself.</p>
+<dl class="method">
+<dt id="pyga.GeneticAlg.evol_population">
+<tt class="descname">evol_population</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pyga.html#GeneticAlg.evol_population"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyga.GeneticAlg.evol_population" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evolves a new generation of the population based on
+the fitness values calculated by score_population.</p>
+<p>Replaces self.population with the new generation.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyga.GeneticAlg.genome_make">
+<tt class="descname">genome_make</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pyga.html#GeneticAlg.genome_make"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyga.GeneticAlg.genome_make" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new genome based on self.chromosomepatterns.
+Uses the selfs random number generator, which may have
+been seeded.</p>
+<p>Genome return is a tuple of tuples of alleles.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyga.GeneticAlg.genome_mutate">
+<tt class="descname">genome_mutate</tt><big>(</big><em>genome</em><big>)</big><a class="reference internal" href="_modules/pyga.html#GeneticAlg.genome_mutate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyga.GeneticAlg.genome_mutate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a mutated copy of a genome. 
+Genome must match self.chromosomepatterns, which it will do if created via
+self.genomemake or self.genomemutate.
+Mutation rate is based on self.mutationrate.</p>
+<p>This does not do cross-over.
+This does not do duplication/deletion, and can&#8217;t unless changes are made to 
+self.chromosomepatterns too.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyga.GeneticAlg.score_population">
+<tt class="descname">score_population</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pyga.html#GeneticAlg.score_population"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyga.GeneticAlg.score_population" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the fitness of each individual in the population.
+Then sorts the population in descending fitness order.
+Ties are broken randomly.</p>
+<p>Rather than returning the scores, it sets the self.scores variable
+This it to discourage repeated fitness calculations becaue it can
+be a computationally expensive process.</p>
+<p>The genomes of the current generation are stored with the scores.
+This is to make it easy to see which genome got which score, rather
+than assuming self.population and self.scores have the same ordering.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyga.GeneticAlg.write_scores">
+<tt class="descname">write_scores</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="_modules/pyga.html#GeneticAlg.write_scores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyga.GeneticAlg.write_scores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dumps current generation to disk.
+Fomat is tab-separated between score and genome.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to PyGA&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="test.html"
+                        title="next chapter">PyGA Tests</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/pyga.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="test.html" title="PyGA Tests"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to PyGA’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">PyGA v0.1.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Adam Faulconbridge.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.3.
+    </div>
+  </body>
+</html>

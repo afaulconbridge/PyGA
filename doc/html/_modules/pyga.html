@@ -58,7 +58,7 @@
 <span class="kn">import</span> <span class="nn">random</span>
 
 
-<div class="viewcode-block" id="Gene"><a class="viewcode-back" href="../index.html#pyga.Gene">[docs]</a><span class="k">class</span> <span class="nc">Gene</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Gene"><a class="viewcode-back" href="../pyga.html#pyga.Gene">[docs]</a><span class="k">class</span> <span class="nc">Gene</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;&quot;</span>
 <span class="sd">    This is the base class for Gene objects. These do not </span>
 <span class="sd">    represent a specific gene on one chromosme, rather</span>
@@ -96,7 +96,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="s">&quot;&lt;&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">+</span><span class="s">&quot;&gt;&quot;</span>
 </div>
-<div class="viewcode-block" id="GeneticAlg"><a class="viewcode-back" href="../index.html#pyga.GeneticAlg">[docs]</a><span class="k">class</span> <span class="nc">GeneticAlg</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="GeneticAlg"><a class="viewcode-back" href="../pyga.html#pyga.GeneticAlg">[docs]</a><span class="k">class</span> <span class="nc">GeneticAlg</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base class for the Genetic Algorithm itself. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -148,7 +148,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">evol_population</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">score_population</span><span class="p">()</span>
     
-<div class="viewcode-block" id="GeneticAlg.genome_make"><a class="viewcode-back" href="../index.html#pyga.GeneticAlg.genome_make">[docs]</a>    <span class="k">def</span> <span class="nf">genome_make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="GeneticAlg.genome_make"><a class="viewcode-back" href="../pyga.html#pyga.GeneticAlg.genome_make">[docs]</a>    <span class="k">def</span> <span class="nf">genome_make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a new genome based on self.chromosomepatterns.</span>
 <span class="sd">        Uses the selfs random number generator, which may have</span>
@@ -165,7 +165,7 @@
             <span class="n">genome</span> <span class="o">=</span> <span class="n">genome</span> <span class="o">+</span> <span class="p">(</span><span class="n">chromosome</span><span class="p">,)</span>
         <span class="k">return</span> <span class="n">genome</span>
 </div>
-<div class="viewcode-block" id="GeneticAlg.genome_mutate"><a class="viewcode-back" href="../index.html#pyga.GeneticAlg.genome_mutate">[docs]</a>    <span class="k">def</span> <span class="nf">genome_mutate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="p">):</span>
+<div class="viewcode-block" id="GeneticAlg.genome_mutate"><a class="viewcode-back" href="../pyga.html#pyga.GeneticAlg.genome_mutate">[docs]</a>    <span class="k">def</span> <span class="nf">genome_mutate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a mutated copy of a genome. </span>
 <span class="sd">        Genome must match self.chromosomepatterns, which it will do if created via</span>
@@ -187,7 +187,7 @@
             <span class="n">genomeout</span> <span class="o">=</span> <span class="n">genomeout</span> <span class="o">+</span> <span class="p">(</span><span class="n">chromosomeout</span><span class="p">,)</span>
         <span class="k">return</span> <span class="n">genomeout</span>
 </div>
-<div class="viewcode-block" id="GeneticAlg.write_scores"><a class="viewcode-back" href="../index.html#pyga.GeneticAlg.write_scores">[docs]</a>    <span class="k">def</span> <span class="nf">write_scores</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<div class="viewcode-block" id="GeneticAlg.write_scores"><a class="viewcode-back" href="../pyga.html#pyga.GeneticAlg.write_scores">[docs]</a>    <span class="k">def</span> <span class="nf">write_scores</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Dumps current generation to disk.</span>
 <span class="sd">        Fomat is tab-separated between score and genome.</span>
@@ -199,7 +199,7 @@
             <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">genome</span><span class="p">))</span>
             <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="GeneticAlg.score_population"><a class="viewcode-back" href="../index.html#pyga.GeneticAlg.score_population">[docs]</a>    <span class="k">def</span> <span class="nf">score_population</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="GeneticAlg.score_population"><a class="viewcode-back" href="../pyga.html#pyga.GeneticAlg.score_population">[docs]</a>    <span class="k">def</span> <span class="nf">score_population</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculates the fitness of each individual in the population.</span>
 <span class="sd">        Then sorts the population in descending fitness order.</span>
@@ -223,7 +223,7 @@
         <span class="c">#throw away the random number now that it is sorted</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scores</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(((</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scores</span><span class="p">))</span>
 </div>
-<div class="viewcode-block" id="GeneticAlg.evol_population"><a class="viewcode-back" href="../index.html#pyga.GeneticAlg.evol_population">[docs]</a>    <span class="k">def</span> <span class="nf">evol_population</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="GeneticAlg.evol_population"><a class="viewcode-back" href="../pyga.html#pyga.GeneticAlg.evol_population">[docs]</a>    <span class="k">def</span> <span class="nf">evol_population</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Evolves a new generation of the population based on</span>
 <span class="sd">        the fitness values calculated by score_population. </span>

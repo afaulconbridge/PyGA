@@ -1,9 +1,11 @@
 """
+PyGA
+====
+
 This is the core module for pyga.
 
-Here are the basic vanilla components; genes and a GA.
+Here are the basic vanilla components; Gene and a GeneticAlgorithm
 Other variations are sub-classes of these.
-
 
 """
 
@@ -11,7 +13,7 @@ import random
 
 
 class Gene(object):
-    """"
+    """
     This is the base class for Gene objects. These do not 
     represent a specific gene on one chromosme, rather
     it representes all possible genes that exist at that
