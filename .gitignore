@@ -1,0 +1,5 @@
+
+doc/build
+doc/latex/*
+!doc/latex/PyGA.pdf
+.*

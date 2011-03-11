@@ -1,4 +1,10 @@
-.PHONEY: test doc 
+.PHONEY: test doc help
+
+help:
+	@echo "The following targets are accepted:"
+	@echo "    help     Display this help message"
+	@echo "    docs     Generate documentation"
+	@echo "    test     Run the test/example suite"
 
 test:
 	#run the test suite in test/
@@ -10,7 +16,7 @@ docs:
 	#with the same name as the file...
 	sphinx-build -b html -d doc/build/doctrees doc/source doc/html
 	sphinx-build -b latex -d doc/build/doctrees -D latex_paper_size=a4 doc/source doc/latex
-	#pdflatex is invoced via this shell script
-	#so that paths are local and its run repeatedly
-	doc/latex/runlatex.sh > /dev/null
+	cd doc/latex; pdflatex PyGA > /dev/null; \
+	              pdflatex PyGA > /dev/null; \
+	              pdflatex PyGA > /dev/null
 	
