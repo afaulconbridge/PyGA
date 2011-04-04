@@ -1,5 +1,9 @@
 
+#ignore temporary doc files
 doc/build
 doc/latex/*
 !doc/latex/PyGA.pdf
+#hidden files are ignored
 .*
+#ignore editor temporary files
+*~
