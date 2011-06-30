@@ -24,9 +24,9 @@ def foo(bar):
 #TODO remove
 import sys
 import os.path
-sys.path.append(os.path.abspath("../"))
 
-import pyga
+import sga
+import sga.sga as sga
 
 
 if __name__=="__main__":
@@ -47,15 +47,15 @@ if __name__=="__main__":
     
     
     #create a genome template
-    #should be tuple of tuples of pyga.Gene
+    #should be tuple of tuples of sga.Gene
     #one chromosome
     #   number of 1.00 coins
     #   number of   50p coins
     #   number of   20p coins
     #   number of    2p coins
-    genome = ((pyga.Gene(range(17)), pyga.Gene(range(63)), pyga.Gene(range(12)), pyga.Gene(range(142)) ),)
+    genome = ((sga.Gene(range(17)), sga.Gene(range(63)), sga.Gene(range(12)), sga.Gene(range(142)) ),)
     
-    ga = pyga.GeneticAlg(100, 1000, genome, coins_fitness)
+    ga = sga.GeneticAlg(100, 1000, genome, coins_fitness)
     
     print "Best fitness:", ga.scores[0][0]
     print "Best genome:", ga.scores[0][1]
