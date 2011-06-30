@@ -1,8 +1,20 @@
-#python setup file
-#This is for distutils to create packages for distribution
-#Generally, this shouldnt be used directly for installation
-#and easy_install -U pyga should be used instead.
-#If you really must install from this, then run:
-#sudo python setup.py install
+from setuptools import setup, find_packages
 
-#TODO write this file...
+setup(name="PyGA", 
+    version="0.1.0", 
+    author="Adam Faulconbridge", 
+    author_email="afaulconbridge@googlemail.com", 
+#    packages=["AChemKit", "AChemKit/utils", "AChemKit/tools"],
+    packages = find_packages(),
+    classifiers = ["Development Status :: 3 - Alpha", 
+        "Intended Audience :: Developers", 
+        "License :: OSI Approved :: BSD License", 
+        "Natural Language :: English", 
+        "Operating System :: OS Independent", 
+        "Programming Language :: Python", 
+        "Programming Language :: Python :: 2.6", 
+        "Programming Language :: Python :: 2.7", 
+        "Topic :: Software Development :: Libraries :: Python Modules"], 
+    url="https://github.com/afaulconbridge/PyGA", 
+    description="A simple Genetic Algorithm library", 
+    long_description=open("README.txt").read() )
