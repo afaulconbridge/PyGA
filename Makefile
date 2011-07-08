@@ -20,3 +20,6 @@ docs:
 	              pdflatex PyGA > /dev/null; \
 	              pdflatex PyGA > /dev/null
 	
+develop:
+	sudo python setup.py develop
+	sudo rm -rf PyGA.egg-info/

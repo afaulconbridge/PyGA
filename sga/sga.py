@@ -11,6 +11,10 @@ Other variations are sub-classes of these.
 
 import random
 
+import AChemKit
+import AChemKit.utils
+from AChemKit.utils import pool
+
 
 class Gene(object):
     """
@@ -54,6 +58,9 @@ class GeneticAlg(object):
     """
     Base class for the Genetic Algorithm itself. 
     """
+    
+    minfitness = None
+    
     def __init__(self, populationsize, generations, genomepattern, fitness_function, survival=0.1, rng=None, avgmutations=1.0, mutationrate = None):
         """
         Constructor to create a GA.
@@ -63,7 +70,7 @@ class GeneticAlg(object):
         """
         assert populationsize > 0
         self.populationsize = populationsize
-        assert generations > 0
+        assert generations >= 0
         self.generations = generations
         self.generationno = 0
         assert len(genomepattern) > 0
@@ -167,7 +174,12 @@ class GeneticAlg(object):
         This is to make it easy to see which genome got which score, rather
         than assuming self.population and self.scores have the same ordering.
         """
-        scores = [self.fitness_function(x) for x in self.population]
+        scores = [None]*len(self.population)
+        for i in xrange(len(self.population)):
+            self.fitness_function.generationno = self.generationno
+            self.fitness_function.individual = i
+            scores[i] = self.fitness_function(self.population[i])
+
         #To randomize the order of tied individuals a random
         #float is assigned to each one. When sorted, this
         #random number will break ties, not population position.
@@ -190,7 +202,7 @@ class GeneticAlg(object):
         if survivecount < 1:
             survivecount = 1
             
-        survived = self. scores[:survivecount]
+        survived = self.scores[:survivecount]
         killed = self.scores[survivecount:]
         assert len(survived) + len(killed) == len(self.population)
         #we should kill something or there is no room for births
@@ -207,19 +219,19 @@ class GeneticAlg(object):
             #if this is the best we can do then we might
             #as well try things at random to find a better
             #area of the fitness landscape
-            if fitness <= 0:
+            if self.minfitness is not None and fitness <= self.minfitness:
                 newgenomes.append(self.genome_make())
             else:
+                #parents survive unchanged
                 newgenomes.append(genome)
-                #parents.append(genome)
-                #best genomes have more chance to reproduce
+                #best genomes have more chance to reproduce?
                 parents = parents + parents + [genome]
 
         #replace the dead with new individuals
         for i in xrange(len(killed)):
             if len(parents) == 0:
                 #if none of the parents were worthy, generate
-                #new random individual
+                #new random individuals
                 newgenomes.append(self.genome_make())
             else:
                 #mutate a random parent
@@ -229,3 +241,7 @@ class GeneticAlg(object):
         assert len(newgenomes) == len(self.population)    
         self.population = newgenomes
             
+
+def dummy_fit(genome):
+    print genome
+    return genome
