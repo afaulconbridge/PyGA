@@ -1,4 +1,4 @@
-.PHONEY: test doc help
+.PHONY: test doc help
 
 help:
 	@echo "The following targets are accepted:"
